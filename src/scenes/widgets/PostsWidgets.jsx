@@ -1,4 +1,4 @@
-import { useEffect} from "react";
+import { useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "../../state/index";
 import PostWidget from "./PostWidget";
@@ -11,10 +11,13 @@ const PostsWidgets = ({userId, isProfile = false}) =>{
     const posts = useSelector((state) => state.posts);
     const token = useSelector((state) => state.token);
 
+    const [xyz,setxyz] = useState([]);
+
     const getPosts = async () =>{
         try {
             const {data} = await axios.get(`${server}/post`,{headers: { Authorization: `Bearer ${token}` }})
-            dispatch(setPosts({ posts: data }));
+            // dispatch(setPosts({ posts: data }));
+            setxyz(data);
         } catch (error) {
             toast.error("Something isn't working");
         }
@@ -23,7 +26,8 @@ const PostsWidgets = ({userId, isProfile = false}) =>{
     const getUserPosts = async () =>{
         try {
             const {data} = await axios.get(`${server}/post/${userId}/posts`,{headers: { Authorization: `Bearer ${token}` }})
-            dispatch(setPosts({ posts: data }));
+            // dispatch(setPosts({ posts: data }));
+            setxyz(data);
         } catch (error) {
             toast.error("Something isn't working");
         }
@@ -35,13 +39,13 @@ const PostsWidgets = ({userId, isProfile = false}) =>{
             getUserPosts();
         else
             getPosts();
-    });
+    },[xyz]);
    
 
     
     return (
     <>
-        {posts && posts.map(
+        {xyz && xyz.map(
         ({
             _id,
             userId,

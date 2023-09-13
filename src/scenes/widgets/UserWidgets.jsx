@@ -36,7 +36,7 @@ const UserWidgets = ({userId, picturePath}) =>{
 
     useEffect(()=>{
         getUser();
-    },[])
+    },[user])
 
     if(!user)
         return null;
@@ -53,7 +53,7 @@ const UserWidgets = ({userId, picturePath}) =>{
             >
                 <FlexBetween gap="1rem">
 
-                    <UserImage image={picturePath} />
+                    <UserImage image={user.picturePath} />
 
                     <Box>
 

@@ -25,7 +25,7 @@ const FriendlistWidget = ({ userId, isProfile=false}) => {
 
     useEffect(() => {
         getFriends();
-    }, []); 
+    }, [userId]); 
 
 
   return (
